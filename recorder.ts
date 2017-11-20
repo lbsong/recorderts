@@ -1,10 +1,8 @@
 class Recorder {
-    worker: Worker;
-    context: AudioContext;
-    microphone: MediaStreamAudioSourceNode;
-    processor: ScriptProcessorNode;
-
-    recording = false;
+    private worker: Worker;
+    private context: AudioContext;
+    private microphone: MediaStreamAudioSourceNode;
+    private processor: ScriptProcessorNode;
 
     constructor(worker) {
         let _this = this;
@@ -52,6 +50,6 @@ class Recorder {
 
         console.log("stopped");
     }
-
-    function 
 }
+
+export { Recorder };
