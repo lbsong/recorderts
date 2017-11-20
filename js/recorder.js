@@ -1,11 +1,13 @@
-class Recorder {
-    constructor(worker) {
-        let _this = this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Recorder = /** @class */ (function () {
+    function Recorder(worker) {
+        var _this = this;
         this.worker = worker;
         this.worker.onmessage = function (event) {
             switch (event.data.command) {
                 case 'end':
-                    let blob = new Blob(event.data.buffer, { type: 'audio/mp3' });
+                    var blob = new Blob(event.data.buffer, { type: 'audio/mp3' });
                     if (_this.onsuccess) {
                         _this.onsuccess(blob);
                     }
@@ -15,35 +17,36 @@ class Recorder {
             }
         };
         navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(stream => {
+            .then(function (stream) {
             _this.context = new AudioContext();
             _this.microphone = _this.context.createMediaStreamSource(stream);
             _this.processor = _this.context.createScriptProcessor(4096, 1, 1);
             _this.processor.onaudioprocess = function (event) {
-                let buffer = event.inputBuffer.getChannelData(0);
+                var buffer = event.inputBuffer.getChannelData(0);
                 _this.worker.postMessage({
                     command: 'encode',
                     buffer: buffer
                 });
             };
         })
-            .catch(reason => {
+            .catch(function (reason) {
             console.log(reason);
         });
     }
-    start() {
+    Recorder.prototype.start = function () {
         this.microphone.connect(this.processor);
         this.processor.connect(this.context.destination);
         console.log("started");
-    }
-    stop() {
+    };
+    Recorder.prototype.stop = function () {
         this.microphone.disconnect();
         this.processor.disconnect();
         console.log("stopped");
-    }
-    getBlob(success) {
+    };
+    Recorder.prototype.getBlob = function (success) {
         this.worker.postMessage({ command: 'finish' });
         this.onsuccess = success;
-    }
-}
-export { Recorder };
+    };
+    return Recorder;
+}());
+exports.Recorder = Recorder;
