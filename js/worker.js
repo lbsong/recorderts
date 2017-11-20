@@ -19,7 +19,7 @@
         mp3Encoder = new lame.Mp3Encoder(1, config.sampleRate || 44100, config.bitRate || 128);
         clearBuffer();
         self.postMessage({
-            cmd: 'init'
+            command: 'init'
         });
     };
 
@@ -51,8 +51,8 @@
     var finish = function(){
         appendToBuffer(mp3Encoder.flush());
         self.postMessage({
-            cmd: 'end',
-            buf: dataBuffer
+            command: 'end',
+            buffer: dataBuffer
         });
         clearBuffer();
     };
