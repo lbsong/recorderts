@@ -1,6 +1,7 @@
 import {Recorder} from './recorder.js';
 
-let worker = new Worker('js/mp3worker.js');
+//let worker = new Worker('js/mp3worker.js');
+let worker = new Worker('workers/xfworker.js');
 
 let recorder = new Recorder(worker);
 

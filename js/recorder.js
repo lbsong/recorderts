@@ -22,7 +22,7 @@ class Recorder {
             _this.processor.onaudioprocess = function (event) {
                 let buffer = event.inputBuffer.getChannelData(0);
                 _this.worker.postMessage({
-                    command: 'encode',
+                    command: 'rec',
                     buffer: buffer
                 });
             };

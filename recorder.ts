@@ -34,7 +34,7 @@ class Recorder {
                     let buffer = event.inputBuffer.getChannelData(0);
 
                     _this.worker.postMessage({
-                        command: 'encode',
+                        command: 'rec',
                         buffer: buffer
                     });
                 };

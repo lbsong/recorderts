@@ -1,5 +1,6 @@
 import { Recorder } from './recorder.js';
-let worker = new Worker('js/myworker.js');
+//let worker = new Worker('js/mp3worker.js');
+let worker = new Worker('workers/xfworker.js');
 let recorder = new Recorder(worker);
 window.onload = function (event) {
     let start = document.querySelector('#start');
