@@ -15,7 +15,7 @@ class Recorder {
                 case 'end':
                     let blob = new Blob(event.data.buffer, { type: 'audio/mp3' });
 
-                    if (_this.onsuccess){
+                    if (_this.onsuccess) {
                         _this.onsuccess(blob);
                     }
                     break;
@@ -42,6 +42,8 @@ class Recorder {
             .catch(reason => {
                 console.log(reason);
             });
+
+        this.worker.postMessage({ command: 'init', config: {}});
     }
 
     start() {
